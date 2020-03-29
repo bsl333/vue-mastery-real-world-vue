@@ -79,7 +79,7 @@
         };
       },
       handleSubmit() {
-        this.$store.dispatch('createEvent', this.event).then(() => {
+        this.$store.dispatch('events/createEvent', this.event).then(() => {
           this.event = this.createFreshEvent();
         });
       }

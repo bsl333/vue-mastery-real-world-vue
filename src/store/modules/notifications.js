@@ -1,5 +1,6 @@
 let nextId = 1;
 export default {
+  namespaced: true,
   state: {
     notifications: []
   },

@@ -21,9 +21,7 @@
       };
     },
     methods: {
-      ...mapActions({
-        removeNotification: 'remove'
-      })
+      ...mapActions('notifications', ['remove'])
     },
     computed: {
       notificationTypeClass() {
@@ -31,10 +29,7 @@
       }
     },
     mounted() {
-      this.timer = setTimeout(
-        () => this.removeNotification(this.notification),
-        2000
-      );
+      this.timer = setTimeout(() => this.remove(this.notification), 2000);
     }
   };
 </script>

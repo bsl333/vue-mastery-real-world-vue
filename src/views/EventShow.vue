@@ -50,7 +50,7 @@
       })
     },
     created() {
-      this.$store.dispatch('fetchEvent', this.id);
+      this.$store.dispatch('events/fetchEvent', this.id);
     }
   };
 </script>

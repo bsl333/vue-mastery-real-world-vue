@@ -45,7 +45,7 @@
     },
     async created() {
       const { perPage, page } = this;
-      this.$store.dispatch('fetchEvents', {
+      this.$store.dispatch('events/fetchEvents', {
         perPage,
         page
       });

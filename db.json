@@ -155,6 +155,34 @@
       "date": "",
       "time": "",
       "attendees": []
+    },
+    {
+      "id": 1003430,
+      "category": "animal welfare",
+      "organizer": {
+        "id": "123",
+        "name": "Branden"
+      },
+      "title": "refactor working???",
+      "description": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": []
+    },
+    {
+      "id": 3301840,
+      "category": "food",
+      "organizer": {
+        "id": "123",
+        "name": "Branden"
+      },
+      "title": "No errors",
+      "description": "Hopefully not",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": []
     }
   ]
 }

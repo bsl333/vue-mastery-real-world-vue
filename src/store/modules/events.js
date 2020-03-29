@@ -1,6 +1,7 @@
 import EventService from '../../services/EventService';
 
 export default {
+  namespaced: true,
   state: {
     events: [],
     totalEvents: 0,
@@ -39,7 +40,7 @@ export default {
           message: 'There was a problem creating your event: ' + error.message
         };
       }
-      dispatch('add', notification);
+      dispatch('notifications/add', notification, { root: true });
       return;
     },
     async fetchEvents({ commit, dispatch }, { perPage, page }) {
@@ -52,7 +53,7 @@ export default {
           type: 'error',
           message: 'There was a problem fetching the events: ' + error.message
         };
-        dispatch('add', notification);
+        dispatch('notifications/add', notification, { root: true });
       }
     },
     async fetchEvent({ commit, getters, dispatch }, id) {
@@ -66,7 +67,7 @@ export default {
           type: 'error',
           message: 'There was a problem fetching the event: ' + error.message
         };
-        dispatch('add', notification);
+        dispatch('notifications/add', notification, { root: true });
       }
     }
   }
