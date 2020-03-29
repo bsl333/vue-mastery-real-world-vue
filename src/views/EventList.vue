@@ -1,28 +1,54 @@
 <template>
   <div>
-    <h1>This is a the EventList view</h1>
+    <h1>Events for {{ user.name }}</h1>
     <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <div class="links">
+      <router-link
+        v-if="page !== 1"
+        :to="{ name: 'event-list', query: { page: page - 1 } }"
+        rel="prev"
+      >
+        Prev page
+      </router-link>
+      <router-link
+        v-if="page * perPage < totalEvents"
+        :to="{ name: 'event-list', query: { page: page + 1 } }"
+        rel="next"
+      >
+        Next page
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
   import EventCard from '../components/EventCard.vue';
-  import EventService from '../services/EventService';
+  import { mapState } from 'vuex';
   export default {
     components: {
       EventCard
     },
     data() {
       return {
-        events: []
+        perPage: 3
       };
     },
-    async created() {
-      try {
-        this.events = (await EventService.getEvents()).data;
-      } catch (e) {
-        console.error(e);
+    computed: {
+      ...mapState({
+        events: state => state.events.events,
+        totalEvents: state => state.events.totalEvents,
+        user: 'user'
+      }),
+      page() {
+        return parseInt(this.$route.query.page) || 1;
       }
+    },
+    async created() {
+      const { perPage, page } = this;
+      this.$store.dispatch('fetchEvents', {
+        perPage,
+        page
+      });
     }
   };
 </script>
@@ -35,5 +61,9 @@
       color: #42b983;
       text-decoration: underline;
     }
+  }
+  .links {
+    display: flex;
+    justify-content: space-between;
   }
 </style>
