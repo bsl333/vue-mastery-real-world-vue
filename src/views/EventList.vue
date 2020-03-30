@@ -11,7 +11,7 @@
         Prev page
       </router-link>
       <router-link
-        v-if="page * perPage < totalEvents"
+        v-if="hasNextPage"
         :to="{ name: 'event-list', query: { page: page + 1 } }"
         rel="next"
       >
@@ -25,31 +25,44 @@
   import { mapState } from 'vuex';
   import EventCard from '../components/EventCard.vue';
   import { EVENTS_ACTIONS } from '../store/modules/events';
+  import store from '../store';
+
+  async function getPageEvents(routeTo, next) {
+    const page = parseInt(routeTo.query.page) || 1;
+    await store.dispatch(EVENTS_ACTIONS.FETCH_EVENTS, {
+      page
+    });
+    routeTo.params.page = page;
+    next();
+  }
   export default {
+    props: {
+      page: {
+        type: Number,
+        required: true
+      }
+    },
     components: {
       EventCard
     },
-    data() {
-      return {
-        perPage: 3
-      };
-    },
     computed: {
-      ...mapState({
-        events: state => state.events.events,
-        totalEvents: state => state.events.totalEvents,
-        user: 'user'
-      }),
-      page() {
-        return parseInt(this.$route.query.page) || 1;
-      }
+      hasNextPage() {
+        return this.page * this.perPage < this.totalEvents;
+      },
+      ...mapState('events', ['events', 'totalEvents', 'perPage']),
+      ...mapState(['user'])
+      // ...mapState({
+      //   events: state => state.events.events,
+      //   totalEvents: state => state.events.totalEvents,
+      //   perPage: state => state.events.perPage,
+      //   user: state => state.user
+      // })
     },
-    async created() {
-      const { perPage, page } = this;
-      this.$store.dispatch(EVENTS_ACTIONS.FETCH_EVENTS, {
-        perPage,
-        page
-      });
+    beforeRouteEnter(routeTo, routeFrom, next) {
+      getPageEvents(routeTo, next);
+    },
+    beforeRouteUpdate(routeTo, routeFrom, next) {
+      getPageEvents(routeTo, next);
     }
   };
 </script>

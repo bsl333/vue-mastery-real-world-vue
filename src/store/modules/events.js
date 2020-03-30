@@ -6,7 +6,8 @@ export default {
   state: {
     events: [],
     totalEvents: 0,
-    currentEvent: {}
+    currentEvent: {},
+    perPage: 3
   },
   getters: {
     getEventById: state => id => state.events.find(event => event.id === id)
@@ -44,11 +45,15 @@ export default {
       dispatch(NOTIFICATIONS_ACTIONS.ADD, notification, { root: true });
       return;
     },
-    async fetchEvents({ commit, dispatch }, { perPage, page }) {
+    async fetchEvents({ commit, dispatch, state }, { page }) {
       try {
-        const resp = await EventService.getEvents(perPage, page);
-        commit('SET_EVENTS', resp.data);
-        commit('TOTAL_EVENTS', resp.headers['x-total-count']);
+        const { data, headers } = await EventService.getEvents(
+          state.perPage,
+          page
+        );
+        commit('SET_EVENTS', data);
+        commit('TOTAL_EVENTS', headers['x-total-count']);
+        return data;
       } catch (error) {
         const notification = {
           type: 'error',
@@ -63,6 +68,7 @@ export default {
           ? getters.getEventById(id)
           : (await EventService.getEvent(id)).data;
         commit('SET_EVENT', event);
+        return event;
       } catch (error) {
         const notification = {
           type: 'error',

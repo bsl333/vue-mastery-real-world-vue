@@ -12,25 +12,26 @@
     props: {
       notification: {
         type: Object,
-        required: true,
-      },
+        required: true
+      }
     },
     data() {
       return {
-        timer: null,
+        timer: null
       };
     },
     computed: {
       notificationTypeClass() {
         return `-text-${this.notification.type}`;
-      },
+      }
     },
     mounted() {
       this.timer = setTimeout(
-        () => this.$store.dispatch(NOTIFICATIONS_ACTIONS.REMOVE, this.notification),
+        () =>
+          this.$store.dispatch(NOTIFICATIONS_ACTIONS.REMOVE, this.notification),
         2000
       );
-    },
+    }
   };
 </script>
 

@@ -7,16 +7,28 @@
     <h3>Name & describe your event</h3>
     <div class="field">
       <label>Title</label>
-      <input v-model="event.title" type="text" placeholder="Add an event title" />
+      <input
+        v-model="event.title"
+        type="text"
+        placeholder="Add an event title"
+      />
     </div>
     <div class="field">
       <label>Description</label>
-      <input v-model="event.description" type="text" placeholder="Add a description" />
+      <input
+        v-model="event.description"
+        type="text"
+        placeholder="Add a description"
+      />
     </div>
     <h3>Where is your event?</h3>
     <div class="field">
       <label>Location</label>
-      <input v-model="event.location" type="text" placeholder="Add a location" />
+      <input
+        v-model="event.location"
+        type="text"
+        placeholder="Add a location"
+      />
     </div>
     <h3>When is your event?</h3>
     <div class="field">
@@ -37,6 +49,8 @@
   import { mapState } from 'vuex';
   import DatePicker from 'vuejs-datepicker';
   import { EVENTS_ACTIONS } from '../store/modules/events';
+  import NProgress from 'nprogress';
+
   export default {
     components: {
       DatePicker
@@ -68,9 +82,19 @@
         };
       },
       handleSubmit() {
-        this.$store.dispatch(EVENTS_ACTIONS.CREATE_EVENT, this.event).then(() => {
-          this.event = this.createFreshEvent();
-        });
+        NProgress.start();
+        this.$store
+          .dispatch(EVENTS_ACTIONS.CREATE_EVENT, this.event)
+          .then(() => {
+            this.$router.push({
+              name: 'event-show',
+              params: { id: this.event.id }
+            });
+            this.event = this.createFreshEvent();
+          })
+          .catch(() => {
+            NProgress.done();
+          });
       }
     },
     computed: {
