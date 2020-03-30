@@ -183,6 +183,20 @@
       "date": "",
       "time": "",
       "attendees": []
+    },
+    {
+      "id": 7911046,
+      "category": "education",
+      "organizer": {
+        "id": "123",
+        "name": "Branden"
+      },
+      "title": "refactor again!",
+      "description": "",
+      "location": "",
+      "date": "2020-03-12T00:13:00.000Z",
+      "time": "",
+      "attendees": []
     }
   ]
 }

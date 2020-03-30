@@ -1,4 +1,5 @@
 import EventService from '../../services/EventService';
+import { NOTIFICATIONS_ACTIONS } from './notifications';
 
 export default {
   namespaced: true,
@@ -40,7 +41,7 @@ export default {
           message: 'There was a problem creating your event: ' + error.message
         };
       }
-      dispatch('notifications/add', notification, { root: true });
+      dispatch(NOTIFICATIONS_ACTIONS.ADD, notification, { root: true });
       return;
     },
     async fetchEvents({ commit, dispatch }, { perPage, page }) {
@@ -53,7 +54,7 @@ export default {
           type: 'error',
           message: 'There was a problem fetching the events: ' + error.message
         };
-        dispatch('notifications/add', notification, { root: true });
+        dispatch(NOTIFICATIONS_ACTIONS.ADD, notification, { root: true });
       }
     },
     async fetchEvent({ commit, getters, dispatch }, id) {
@@ -67,8 +68,14 @@ export default {
           type: 'error',
           message: 'There was a problem fetching the event: ' + error.message
         };
-        dispatch('notifications/add', notification, { root: true });
+        dispatch(NOTIFICATIONS_ACTIONS.ADD, notification, { root: true });
       }
     }
   }
+};
+const EVENTS = 'events/';
+export const EVENTS_ACTIONS = {
+  FETCH_EVENTS: EVENTS + 'fetchEvents',
+  FETCH_EVENT: EVENTS + 'fetchEvent',
+  CREATE_EVENT: EVENTS + 'createEvent'
 };

@@ -6,7 +6,6 @@
       <h5>Organized by {{ organizer }}</h5>
       <h5>Category: {{ event.category }}</h5>
     </div>
-    <!-- <BaseIcon name="map"><h2>Location</h2></BaseIcon> -->
     <BaseIcon name="users">
       {{ event.attendees && event.attendees.length }} attending
     </BaseIcon>
@@ -20,11 +19,7 @@
       </span>
     </h2>
     <ul class="list-group">
-      <li
-        v-for="(attendee, index) in event.attendees"
-        :key="index"
-        class="list-item"
-      >
+      <li v-for="(attendee, index) in event.attendees" :key="index" class="list-item">
         <b>{{ attendee.name }}</b>
       </li>
     </ul>
@@ -33,6 +28,7 @@
 
 <script>
   import { mapState } from 'vuex';
+  import { EVENTS_ACTIONS } from '../store/modules/events';
   export default {
     props: {
       id: {
@@ -41,16 +37,14 @@
     },
     computed: {
       organizer() {
-        return this.event.organizer
-          ? this.event.organizer.name
-          : this.event.organizer;
+        return this.event.organizer ? this.event.organizer.name : this.event.organizer;
       },
       ...mapState({
         event: state => state.events.currentEvent
       })
     },
     created() {
-      this.$store.dispatch('events/fetchEvent', this.id);
+      this.$store.dispatch(EVENTS_ACTIONS.FETCH_EVENT, this.id);
     }
   };
 </script>

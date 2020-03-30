@@ -7,30 +7,30 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
+  import { NOTIFICATIONS_ACTIONS } from '../store/modules/notifications';
   export default {
     props: {
       notification: {
         type: Object,
-        required: true
-      }
+        required: true,
+      },
     },
     data() {
       return {
-        timer: null
+        timer: null,
       };
-    },
-    methods: {
-      ...mapActions('notifications', ['remove'])
     },
     computed: {
       notificationTypeClass() {
         return `-text-${this.notification.type}`;
-      }
+      },
     },
     mounted() {
-      this.timer = setTimeout(() => this.remove(this.notification), 2000);
-    }
+      this.timer = setTimeout(
+        () => this.$store.dispatch(NOTIFICATIONS_ACTIONS.REMOVE, this.notification),
+        2000
+      );
+    },
   };
 </script>
 

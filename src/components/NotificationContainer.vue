@@ -15,9 +15,7 @@
     components: {
       NotificationBar
     },
-    computed: mapState({
-      notifications: state => state.notifications.notifications
-    })
+    computed: mapState('notifications', ['notifications'])
   };
 </script>
 

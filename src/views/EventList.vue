@@ -22,8 +22,9 @@
 </template>
 
 <script>
-  import EventCard from '../components/EventCard.vue';
   import { mapState } from 'vuex';
+  import EventCard from '../components/EventCard.vue';
+  import { EVENTS_ACTIONS } from '../store/modules/events';
   export default {
     components: {
       EventCard
@@ -45,7 +46,7 @@
     },
     async created() {
       const { perPage, page } = this;
-      this.$store.dispatch('events/fetchEvents', {
+      this.$store.dispatch(EVENTS_ACTIONS.FETCH_EVENTS, {
         perPage,
         page
       });

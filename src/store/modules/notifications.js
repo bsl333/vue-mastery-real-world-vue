@@ -26,3 +26,8 @@ export default {
     }
   }
 };
+const NOTIFICATIONS = 'notifications/';
+export const NOTIFICATIONS_ACTIONS = {
+  ADD: NOTIFICATIONS + 'add',
+  REMOVE: NOTIFICATIONS + 'remove'
+};
