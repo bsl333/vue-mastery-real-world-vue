@@ -4,7 +4,8 @@ const baseURL = 'http://localhost:3000';
 
 const apiClient = axios.create({
   baseURL,
-  withCredentials: false
+  withCredentials: false,
+  timeout: 5000
 });
 
 export default {

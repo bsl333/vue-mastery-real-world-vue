@@ -75,6 +75,7 @@ export default {
           message: 'There was a problem fetching the event: ' + error.message
         };
         dispatch(NOTIFICATIONS_ACTIONS.ADD, notification, { root: true });
+        throw error;
       }
     }
   }
