@@ -6,7 +6,7 @@
       <h5>Organized by {{ organizer }}</h5>
       <h5>Category: {{ event.category }}</h5>
     </div>
-    <BaseIcon name="users">
+    <BaseIcon name="map">
       {{ event.attendees && event.attendees.length }} attending
     </BaseIcon>
     <address>{{ event.location }}</address>
