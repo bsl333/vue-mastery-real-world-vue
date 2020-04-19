@@ -1,7 +1,7 @@
 <template>
   <div>
     <label v-if="label">{{ label }}</label>
-    <input v-bind="$attrs" @input="handleInput" :value="value" step=".01" />
+    <input v-bind="$attrs" v-on="listeners" :value="value" step=".01" />
   </div>
 </template>
 
@@ -22,6 +22,14 @@
     methods: {
       handleInput(e) {
         this.$emit('input', e.target.value);
+      }
+    },
+    computed: {
+      listeners() {
+        return {
+          ...this.$listeners,
+          input: this.handleInput
+        };
       }
     }
   };

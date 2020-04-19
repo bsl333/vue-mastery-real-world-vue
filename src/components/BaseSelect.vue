@@ -1,7 +1,7 @@
 <template>
   <div>
     <label v-if="label"> {{ label }} </label>
-    <select @input="handleSelect" v-bind="$attrs">
+    <select @input="handleSelect" v-bind="$attrs" v-on="$listeners">
       <option v-if="optionPlaceholder" value="">
         {{ optionPlaceholder }}
       </option>
