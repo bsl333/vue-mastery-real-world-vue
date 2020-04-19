@@ -253,6 +253,21 @@
       "date": "",
       "time": "",
       "attendees": []
+    },
+    {
+      "id": 1664649,
+      "category": "animal welfare",
+      "organizer": {
+        "id": "123",
+        "name": "Branden"
+      },
+      "title": "",
+      "description": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": [],
+      "count": 0
     }
   ]
 }
