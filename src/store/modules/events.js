@@ -33,7 +33,7 @@ export default {
         await EventService.createEvent(event);
         commit('ADD_EVENT', event);
         notification = {
-          type: 'failure',
+          type: 'success',
           message: `event ${event.id} was added`
         };
       } catch (error) {
